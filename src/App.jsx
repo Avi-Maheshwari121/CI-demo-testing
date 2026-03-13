@@ -1,6 +1,7 @@
 // src/App.jsx
 import { useState } from 'react'
 import './App.css'
+const dontuse = 'This variable is here to demonstrate that our tests are not relying on implementation details. It is not used anywhere in the code.'
 
 function App() {
   const [bugsSquashed, setBugsSquashed] = useState(0)
