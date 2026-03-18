@@ -49,5 +49,14 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub provides this automatically
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # The secret you added in Step 3
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=Avi-Maheshwari121_CI-demo-testing
+            -Dsonar.organization=avi-maheshwari121
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=src/**/*.test.jsx
+            -Dsonar.exclusions=**/coverage/**,**/node_modules/**,**/dist/**,**/*.html,src/setupTests.js,src/main.jsx
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
