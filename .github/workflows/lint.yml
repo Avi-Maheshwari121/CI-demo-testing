@@ -25,13 +25,15 @@ jobs:
       - name: Run Linter
         run: npm run lint
 
-  # JOB 2: Just the Unit Tests
+  # JOB 2: Unit Tests & SonarQube Analysis
   test:
-    name: Unit Test Check
+    name: Unit Test & SonarQube Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Crucial for SonarQube to understand Git history
         
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -41,5 +43,20 @@ jobs:
       - name: Install Dependencies
         run: npm ci
         
-      - name: Run Tests
+      - name: Run Tests with Coverage
         run: npm run test
+        
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=Avi-Maheshwari121_CI-demo-testing
+            -Dsonar.organization=avi-maheshwari121
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=src/**/*.test.jsx
+            -Dsonar.exclusions=**/coverage/**,**/node_modules/**,**/dist/**,**/*.html,src/setupTests.js,src/main.jsx
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
