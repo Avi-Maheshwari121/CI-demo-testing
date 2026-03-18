@@ -21,7 +21,7 @@ describe('App Component - The Testing Lab', () => {
   it('increments the bug count when the button is clicked', () => {
     render(<App />)
     
-    const button = screen.getByText(' Squash a Bug ')
+    const button = screen.getByText('💥 Squash a Bug 💥')
     
     // Simulate a user clicking the button
     fireEvent.click(button)
@@ -33,7 +33,7 @@ describe('App Component - The Testing Lab', () => {
   // Test 3: Does the conditional rendering work?
   it('shows a success message after 5 bugs are squashed', () => {
     render(<App />)
-    const button = screen.getByText(' Squash a Bug ')
+    const button = screen.getByText('💥 Squash a Bug 💥')
 
     // Simulate clicking 5 times quickly
     for(let i = 0; i < 5; i++) {
